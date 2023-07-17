@@ -93,28 +93,28 @@ def create_blog(request):
             status=0,
         )
 
-        # try:
-        #     mailchimp = MailchimpTransactional.Client(
-        #         os.getenv("MAILCHIMP_TRANSACTIONAL_KEY")
-        #     )
+        try:
+            mailchimp = MailchimpTransactional.Client(
+                os.getenv("MAILCHIMP_TRANSACTIONAL_KEY")
+            )
 
-        #     subscribers = Subscriber.objects.values_list("email", flat=True)
+            subscribers = Subscriber.objects.values_list("email", flat=True)
 
-        #     for email in subscribers:
-        #         mailchimp.messages.send(
-        #             {
-        #                 "message": {
-        #                     "subject": "New Blog Post",
-        #                     "from_email": "bookofally@allyhaas.com",
-        #                     "to": [{"email": email, "type": "to"}],
-        #                     "text": f"A new blog post '{title}' has been published. Check it out at: http://localhost:3000/blog/{slug}",
-        #                 }
-        #             }
-        #         )
+            for email in subscribers:
+                mailchimp.messages.send(
+                    {
+                        "message": {
+                            "subject": "New Blog Post",
+                            "from_email": "bookofally@allyhaas.com",
+                            "to": [{"email": email, "type": "to"}],
+                            "text": f"A new blog post '{title}' has been published. Check it out at: http://localhost:3000/blog/{slug}",
+                        }
+                    }
+                )
 
-        #     return JsonResponse({"success": True})
-        # except Exception as e:
-        #     return JsonResponse({"success": False, "error": str(e)})
+            return JsonResponse({"success": True})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
 
     else:
         return JsonResponse({"success": False, "errors": "Invalid request method."})
