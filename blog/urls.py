@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import PostListView, PostDetailView, get_csrf_token, subscribe, create_blog
+from .views import PostListView, PostDetailView, get_csrf_token, subscribe, create_blog, unsubscribe
 
 urlpatterns = [
     path('', PostListView.as_view(), name='home'),
@@ -9,6 +9,7 @@ urlpatterns = [
     path('get_csrf_token/', get_csrf_token, name='get_csrf_token'),
     path('subscribe/', subscribe, name='subscribe'),
     path('create-blog/', create_blog, name='create_blog'),
+    path('unsubscribe/', unsubscribe, name='unsubscribe'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
