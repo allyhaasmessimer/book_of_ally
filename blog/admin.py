@@ -32,7 +32,7 @@ class PostAdmin(admin.ModelAdmin):
                             "subject": "New Blog Post",
                             "from_email": "bookofally@allyhaas.com",
                             "to": [{"email": email, "type": "to"}],
-                            "text": f"A new blog post '{obj.title}' has been published. Check it out at: http://localhost:3000/blog/{obj.slug}\n\nTo unsubscribe, click here: http://localhost:3000/unsubscribe",
+                            "text": f"A new blog post '{obj.title}' has been published. Check it out at: allyhaas.com/blog/{obj.slug}\n\nTo unsubscribe, click here: allyhaas.com/unsubscribe",
                         }
                     }
                 )

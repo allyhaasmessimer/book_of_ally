@@ -9,6 +9,8 @@ import os
 from dotenv import load_dotenv
 import mailchimp_transactional as MailchimpTransactional
 from django.shortcuts import redirect
+from django.conf import settings
+from django.urls import reverse
 
 load_dotenv()
 
@@ -117,7 +119,7 @@ def create_blog(request):
             subscribers = Subscriber.objects.values_list("email", flat=True)
 
             for email in subscribers:
-                unsubscribe_url = "http://localhost:8000/unsubscribe?email=" + email  # Replace with your actual unsubscribe URL
+                unsubscribe_url = request.build_absolute_uri(reverse("unsubscribe")) + "?email=" + email
                 message = f"A new blog post '{title}' has been published"
                 mailchimp.messages.send(
                     {
