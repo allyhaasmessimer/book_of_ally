@@ -38,7 +38,8 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "allyhaas.com"
+    "allyhaas.com",
+    "www.allyhaas.com"
 ]
 
 # Quick-start development settings - unsuitable for production
@@ -50,7 +51,7 @@ SECRET_KEY = "django-insecure-jq)$f!or7y)jkj@!3me#jrc6ohm4=$=7v!1$sa7jla#q4d0(_v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["http://localhost:3000", "127.0.0.1"]
+ALLOWED_HOSTS = ["http://localhost:3000", "127.0.0.1", "www.allyhaas.com", "allyhaas.com"]
 
 
 # Application definition
@@ -145,10 +146,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+STATIC_ROOT = os.path.join(BASE_DIR, "frontend/build/static")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
