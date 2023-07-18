@@ -8,6 +8,9 @@ from django.middleware import csrf
 import os
 from dotenv import load_dotenv
 import mailchimp_transactional as MailchimpTransactional
+from django.shortcuts import redirect
+from django.conf import settings
+from django.urls import reverse
 
 load_dotenv()
 
@@ -76,6 +79,21 @@ def subscribe(request):
 
 
 @csrf_exempt
+def unsubscribe(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+
+        try:
+            subscriber = Subscriber.objects.get(email=email)
+            subscriber.delete()
+            return JsonResponse({"message": "You have been unsubscribed successfully."})
+        except Subscriber.DoesNotExist:
+            return JsonResponse({"message": "Email not found."}, status=400)
+    else:
+        return JsonResponse({"message": "Invalid request method."}, status=405)
+
+
+@csrf_exempt
 def create_blog(request):
     if request.method == "POST":
         title = request.POST.get("title")
@@ -101,13 +119,15 @@ def create_blog(request):
             subscribers = Subscriber.objects.values_list("email", flat=True)
 
             for email in subscribers:
+                unsubscribe_url = request.build_absolute_uri(reverse("unsubscribe")) + "?email=" + email
+                message = f"A new blog post '{title}' has been published"
                 mailchimp.messages.send(
                     {
                         "message": {
                             "subject": "New Blog Post",
                             "from_email": "bookofally@allyhaas.com",
                             "to": [{"email": email, "type": "to"}],
-                            "text": f"A new blog post '{title}' has been published. Check it out at: http://localhost:3000/blog/{slug}",
+                            "text": message,
                         }
                     }
                 )
