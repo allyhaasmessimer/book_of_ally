@@ -38,8 +38,8 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "allyhaas.com",
-    "www.allyhaas.com"
+    "http://allyhaas.com",
+    "http://www.allyhaas.com"
 ]
 
 # Quick-start development settings - unsuitable for production
@@ -51,7 +51,7 @@ SECRET_KEY = "django-insecure-jq)$f!or7y)jkj@!3me#jrc6ohm4=$=7v!1$sa7jla#q4d0(_v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["http://localhost:3000", "127.0.0.1", "www.allyhaas.com", "allyhaas.com"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "www.allyhaas.com", "allyhaas.com"]
 
 
 # Application definition
@@ -104,9 +104,13 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog',
+        'USER': os.getenv("USER"),
+        'PASSWORD': os.getenv("PASSWORD"),
+        'HOST': 'localhost',  # Replace with your PostgreSQL host if needed
+        'PORT': '',          # Leave it empty for the default PostgreSQL port (5432)
     }
 }
 
