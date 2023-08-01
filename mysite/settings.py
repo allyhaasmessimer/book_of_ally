@@ -53,7 +53,13 @@ SECRET_KEY = "django-insecure-jq)$f!or7y)jkj@!3me#jrc6ohm4=$=7v!1$sa7jla#q4d0(_v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "www.allyhaas.com", "allyhaas.com"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "www.allyhaas.com",
+    "allyhaas.com",
+    "book-of-ally-b3cb0c4823d8.herokuapp.com",
+]
 
 
 # Application definition
@@ -108,9 +114,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
-}
+DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
 
 
 # Password validation
