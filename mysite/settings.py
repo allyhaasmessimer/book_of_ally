@@ -42,7 +42,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://allyhaas.com",
     "http://www.allyhaas.com",
-    "allyhaas.com",
+    'http://allyhaas.com',
 ]
 
 # Quick-start development settings - unsuitable for production
