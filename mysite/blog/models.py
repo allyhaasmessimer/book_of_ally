@@ -8,7 +8,7 @@ STATUS = ((0, "Draft"), (1, "Publish"))
 
 
 def get_image_upload_path(instance, filename):
-    return os.path.join("blog/images", filename)
+    return "blog/images/" + filename
 
 
 class Post(models.Model):

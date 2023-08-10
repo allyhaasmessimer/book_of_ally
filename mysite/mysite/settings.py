@@ -16,7 +16,7 @@ import dj_database_url
 from decouple import config
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIRS = os.path.join(BASE_DIR, "templates")
 
@@ -26,37 +26,40 @@ MEDIA_URL = "/media/"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",  # Adjust as per your needs
+        "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",  # Enable session-based authentication
+        "rest_framework.authentication.SessionAuthentication",
     ],
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://allyhaas.com",
     "http://www.allyhaas.com",
+    'http://allyhaas.com',
 ]
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-jq)$f!or7y)jkj@!3me#jrc6ohm4=$=7v!1$sa7jla#q4d0(_v"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "www.allyhaas.com", "allyhaas.com"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "www.allyhaas.com",
+    "allyhaas.com",
+    "book-of-ally-b3cb0c4823d8.herokuapp.com",
+]
 
 
-# Application definition
+
 
 INSTALLED_APPS = [
     "blog.apps.BlogConfig",
@@ -66,7 +69,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "frontend",
     "corsheaders",
 ]
 
@@ -105,14 +107,12 @@ TEMPLATES = [
 WSGI_APPLICATION = "mysite.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {"default": dj_database_url.config(default=config("DATABASE_URL"))}
 
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
+
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -142,14 +142,11 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "frontend/build/static")
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
