@@ -42,14 +42,21 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://allyhaas.com",
     "http://www.allyhaas.com",
+    'http://allyhaas.com',
 ]
 
 
-SECRET_KEY = "django-insecure-jq)$f!or7y)jkj@!3me#jrc6ohm4=$=7v!1$sa7jla#q4d0(_v"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "www.allyhaas.com", "allyhaas.com"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "www.allyhaas.com",
+    "allyhaas.com",
+    "book-of-ally-b3cb0c4823d8.herokuapp.com",
+]
 
 
 
@@ -102,7 +109,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 
 
-DATABASES = {"default": dj_database_url.config(default=config("DATABASE_URL"))}
+DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
 
 
 
