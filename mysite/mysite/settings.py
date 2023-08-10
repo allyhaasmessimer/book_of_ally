@@ -52,7 +52,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
-    "127.0.0.1",
     "www.allyhaas.com",
     "allyhaas.com",
     "book-of-ally-b3cb0c4823d8.herokuapp.com",
