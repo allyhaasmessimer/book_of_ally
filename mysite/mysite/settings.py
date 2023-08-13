@@ -103,19 +103,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "mysite.wsgi.application"
-
-
-<<<<<<< HEAD
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-<<<<<<< HEAD:settings.py
-DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
-=======
-DATABASES = {"default": dj_database_url.config(default=config("DATABASE_URL"))}
->>>>>>> 430b597f495336a0cd00faa60e4199c9aa47914b:mysite/mysite/settings.py
-=======
->>>>>>> 4913e0eb4c1ea1f6902c15ab9444604877e63b0d
 
 
 DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
