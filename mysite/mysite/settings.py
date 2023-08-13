@@ -52,10 +52,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost",
+    "127.0.0.1",
     "www.allyhaas.com",
     "allyhaas.com",
     "book-of-ally-b3cb0c4823d8.herokuapp.com",
 ]
+
 
 
 
@@ -103,13 +105,22 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "mysite.wsgi.application"
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
 
-DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
 
+# DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "blog",
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": "localhost",  # Replace with your PostgreSQL host if needed
+        "PORT": "",
+    }
+}
 
 
 
