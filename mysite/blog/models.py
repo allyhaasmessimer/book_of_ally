@@ -31,7 +31,7 @@ class Post(models.Model):
 
 
 class Subscriber(models.Model):
-    email = models.EmailField(unique=False, default='')
+    email = models.EmailField(unique=False, default="")
 
     def __str__(self):
         return self.email

@@ -18,6 +18,7 @@ class PostAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
+        ##FOR EMAILING SUBSCRIBE UPDATES. I HAVE PAUSED THIS FOR NOW
         # try:
         #     mailchimp = MailchimpTransactional.Client(
         #         os.getenv("MAILCHIMP_TRANSACTIONAL_KEY")

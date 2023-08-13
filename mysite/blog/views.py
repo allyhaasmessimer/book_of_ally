@@ -119,7 +119,11 @@ def create_blog(request):
             subscribers = Subscriber.objects.values_list("email", flat=True)
 
             for email in subscribers:
-                unsubscribe_url = request.build_absolute_uri(reverse("unsubscribe")) + "?email=" + email
+                unsubscribe_url = (
+                    request.build_absolute_uri(reverse("unsubscribe"))
+                    + "?email="
+                    + email
+                )
                 message = f"A new blog post '{title}' has been published"
                 mailchimp.messages.send(
                     {
