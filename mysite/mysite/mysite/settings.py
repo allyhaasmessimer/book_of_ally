@@ -42,10 +42,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://allyhaas.com",
     "http://www.allyhaas.com",
-<<<<<<< HEAD:settings.py
     'http://allyhaas.com',
-=======
->>>>>>> 430b597f495336a0cd00faa60e4199c9aa47914b:mysite/mysite/settings.py
 ]
 
 
@@ -112,11 +109,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 
 
 
-<<<<<<< HEAD:settings.py
 DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
-=======
-DATABASES = {"default": dj_database_url.config(default=config("DATABASE_URL"))}
->>>>>>> 430b597f495336a0cd00faa60e4199c9aa47914b:mysite/mysite/settings.py
 
 
 
