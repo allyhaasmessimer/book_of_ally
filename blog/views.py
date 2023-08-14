@@ -8,6 +8,7 @@ import os
 from dotenv import load_dotenv
 import mailchimp_transactional as MailchimpTransactional
 from django.urls import reverse
+import boto3
 
 load_dotenv()
 
@@ -15,6 +16,7 @@ load_dotenv()
 class PostListView(View):
     def get(self, request, *args, **kwargs):
         posts = Post.objects.filter(status=1).order_by("-created_on")
+
         post_data = [
             {
                 "id": post.id,
@@ -22,11 +24,22 @@ class PostListView(View):
                 "content": post.content,
                 "created_on": post.created_on,
                 "slug": post.slug,
-                "image": post.image.url if post.image else None,
+                "image": self.generate_presigned_url(post.image) if post.image else None,
             }
             for post in posts
         ]
         return JsonResponse({"posts": post_data})
+
+    def generate_presigned_url(self, image):
+        if image:
+            s3_client = boto3.client('s3')
+            url = s3_client.generate_presigned_url(
+                'get_object',
+                Params={'Bucket': 'bookofally-media', 'Key': image.name},
+                ExpiresIn=3600
+            )
+            return url
+        return None
 
 
 class PostDetailView(View):
