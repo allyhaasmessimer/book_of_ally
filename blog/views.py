@@ -1,15 +1,12 @@
 from django.http import JsonResponse
 from django.views import View
 from .models import Post, Subscriber
-from django.conf import settings
 from .forms import SubscribeForm
 from django.views.decorators.csrf import csrf_exempt
 from django.middleware import csrf
 import os
 from dotenv import load_dotenv
 import mailchimp_transactional as MailchimpTransactional
-from django.shortcuts import redirect
-from django.conf import settings
 from django.urls import reverse
 
 load_dotenv()
@@ -25,7 +22,7 @@ class PostListView(View):
                 "content": post.content,
                 "created_on": post.created_on,
                 "slug": post.slug,
-                "image": os.path.join(settings.MEDIA_URL, post.image.name)
+                "image": post.image.url if post.image else None,
                 if post.image
                 else None,
             }
