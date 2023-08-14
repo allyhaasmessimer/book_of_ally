@@ -1,15 +1,32 @@
 from pathlib import Path
 import os
 import dj_database_url
-from decouple import config
+import boto3
+from storages.backends.s3boto3 import S3Boto3Storage
+
+
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+
+
+s3_client = boto3.client(
+    "s3",
+    aws_access_key_id=AWS_ACCESS_KEY_ID,
+    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+)
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIRS = os.path.join(BASE_DIR, "templates")
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# MEDIA settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_STORAGE_BUCKET_NAME = 'bookofally-media'  # Your S3 bucket name
+MEDIA_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
-MEDIA_URL = "/media/"
+# STATIC settings
+STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
@@ -105,6 +122,12 @@ DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_
 #     }
 # }
 
+## updated file storage to S3
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# MEDIA_URL = "/media/"
+# STATIC_URL = "/static/"
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -129,11 +152,6 @@ TIME_ZONE = "America/Denver"
 USE_I18N = True
 
 USE_TZ = True
-
-
-STATIC_URL = "/static/"
-
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
