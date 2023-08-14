@@ -23,8 +23,6 @@ class PostListView(View):
                 "created_on": post.created_on,
                 "slug": post.slug,
                 "image": post.image.url if post.image else None,
-                if post.image
-                else None,
             }
             for post in posts
         ]
