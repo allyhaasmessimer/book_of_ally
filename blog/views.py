@@ -8,7 +8,7 @@ import os
 from dotenv import load_dotenv
 import mailchimp_transactional as MailchimpTransactional
 from django.urls import reverse
-import boto3
+from django.conf import settings
 
 load_dotenv()
 
@@ -32,12 +32,7 @@ class PostListView(View):
 
     def generate_presigned_url(self, image):
         if image:
-            s3_client = boto3.client('s3')
-            url = s3_client.generate_presigned_url(
-                'get_object',
-                Params={'Bucket': 'bookofally-media', 'Key': image.name},
-                ExpiresIn=3600
-            )
+            url = settings.MEDIA_URL + image.name
             return url
         return None
 
