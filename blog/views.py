@@ -24,7 +24,9 @@ class PostListView(View):
                 "content": post.content,
                 "created_on": post.created_on,
                 "slug": post.slug,
-                "image": self.generate_presigned_url(post.image) if post.image else None,
+                "image": self.generate_presigned_url(post.image)
+                if post.image
+                else None,
             }
             for post in posts
         ]
@@ -55,9 +57,15 @@ class PostDetailView(View):
             "title": post.title,
             "content": post.content,
             "created_on": post.created_on,
-            "image": post.image.url if post.image else None,
+            "image": self.generate_presigned_url(post.image) if post.image else None,
         }
         return JsonResponse(post_data)
+
+    def generate_presigned_url(self, image):
+        if image:
+            url = settings.MEDIA_URL + image.name
+            return url
+        return None
 
 
 @csrf_exempt
@@ -122,7 +130,11 @@ def create_blog(request):
             subscribers = Subscriber.objects.values_list("email", flat=True)
 
             for email in subscribers:
-                unsubscribe_url = request.build_absolute_uri(reverse("unsubscribe")) + "?email=" + email
+                unsubscribe_url = (
+                    request.build_absolute_uri(reverse("unsubscribe"))
+                    + "?email="
+                    + email
+                )
                 message = f"A new blog post '{title}' has been published"
                 mailchimp.messages.send(
                     {
