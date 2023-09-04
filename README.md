@@ -1,0 +1,2 @@
+# book_of_ally
+Book of Ally is a personal blog that showcases my thoughts and experiences. To power this platform, I used Django for the backend, PostgreSQL as the database, and deployed the application on Heroku for smooth performance. The frontend, built with React, ensures a dynamic and responsive user interface. For deployment, I chose Netlify, a reliable platform that brings the blog to life on the web. Together, this combination of technologies creates a seamless and enjoyable reading experience for you. 
